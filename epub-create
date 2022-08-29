@@ -14,7 +14,7 @@ fi
 DIR="${*}"
 if [ -z "${DIR}" ]
 then
-    echo 'Usage: epubmaker [dir]'
+    echo 'Usage: epub-create [dir]'
     exit 1
 fi
 
@@ -76,8 +76,8 @@ FIN
 
     # Get user to finalise file.
     "${EDITOR}" "${NAME}.xhtml"
-    
-done    
+
+done
 
 # Create 'mimetype' file.
 echo -n 'application/epub+zip' > "${EPUB}/mimetype"
@@ -108,7 +108,7 @@ cat >> "${PACKAGE}" << FIN
         <dc:identifier id="pub-id">${PUB_ID}</dc:identifier>
         <dc:title>${TITLE}</dc:title>
         <dc:creator id="creator">${AUTHORS}</dc:creator>
-        <meta property=\dcterms:modified">${NOW}</meta>
+        <meta property="dcterms:modified">${NOW}</meta>
         <dc:language>${DOC_LANG}</dc:language>
     </metadata>
     <manifest>
