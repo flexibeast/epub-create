@@ -1,0 +1,94 @@
+.Dd August 29, 2022
+.Dt EPUB-CREATE 1
+.Os
+.Sh NAME
+.Nm epub-create
+.Nd simple shell script for creating EPUB documents
+.Sh SYNOPSIS
+.Nm
+.Ar dir
+.Sh DESCRIPTION
+.Nm
+is a simple POSIX shell script for creating an EPUB document from a
+directory containing non-binary files.
+.Pp
+When run,
+.Nm
+will ask for the document title, authors, language and publication ID.
+Pressing ENTER at any prompt will result in a default value being
+used; the defaults are
+.Dq A Document ,
+.Dq [unknown] ,
+.Dq en
+and
+.Dq [unknown] ,
+respectively.
+.Nm
+will then start
+.Ev EDITOR
+with a list of the files found in
+.Ar dir .
+This is the EPUB
+.Sq spine ,
+via which one specifies the order in which the reader of the EPUB
+should read the files.
+.Pp
+Upon save and exit,
+.Nm
+will open each file in the reading order specified, allowing one to
+finalise the contents of the XHTML version of each file.
+At a minimum, this should involve changing the contents of the
+.Aq title
+element, but this is not required.
+.Pp
+Once all the files have been processed,
+.Nm
+will open the
+.Pa nav.xhtml
+file containing the table of contents, for finalising.
+Upon save and exit, a file named
+.So
+.Pa "" Ns Ar dir Ns .epub
+.Sc
+will be created in the current directory.
+.Ss Dependencies
+This script is intended to be runnable via a POSIX-compliant shell,
+requiring only the presence of
+.Xr cat 1p ,
+.Xr date 1p
+and
+.Xr zip 1 .
+.Sh ENVIRONMENT
+.Bl -tag -width x
+.It Ev EDITOR
+The editor to use for editing.
+.El
+.Sh SEE ALSO
+.Bl -tag -width x
+.It EPUB 3 Overview
+.Lk https://www.w3.org/publishing/epub32/epub-overview.html
+.It EPUB Open Container Format (OCF) 3.2
+.Lk https://www.w3.org/publishing/epub/epub-ocf.html
+.It EPUB Packages 3.2
+.Lk https://www.w3.org/publishing/epub32/epub-packages.html
+.It EPUBCheck
+.Lk https://www.w3.org/publishing/epubcheck/
+.El
+.Sh AUTHORS
+.An Alexis Mt flexibeast@gmail.com
+.Sh CAVEATS
+.Nm
+is not intended to be anything other than a portable, low-dependency
+script for creating a minimal EPUB from a small collection of files.
+There are no plans for it to develop further capabilities and become a
+serious tool for working with EPUBs.
+.Pp
+One cross-platform option for serious EPUB work is Sigil, based on
+QtWebEngine:
+.Pp
+.Lk https://sigil-ebook.com/
+.Pp
+For simply creating an EPUB from an existing document in formats such
+PDF or OOXML, consider Pandoc:
+.Pp
+.Lk https://pandoc.org
