@@ -41,7 +41,7 @@ mkdir "${EPUB}/EPUB"
 
 # Create temporary spine file.
 touch "${SPINE}"
-for F in "${FILES}"
+for F in ${FILES}
 do
     echo "${F}" >> "${SPINE}"
 done
@@ -50,12 +50,12 @@ done
 "${EDITOR}" "${SPINE}"
 
 # Create XHTML contents files.
-for F in $(cat ${SPINE})
+for F in $(cat "${SPINE}")
 do
 
     CONTENTS=$(cat "${DIR}"/"${F}")
     NAME="${EPUB}/EPUB/${F}"
-    NAME="$(echo ${NAME} | sed -e 's/\.[^.]*$//')"
+    NAME=$(echo "${NAME}" | sed -e 's/\.[^.]*$//')
     touch "${NAME}.xhtml"
     cat >> "${NAME}.xhtml" << FIN
 <?xml version="1.0" encoding="UTF-8"?>
@@ -117,18 +117,18 @@ cat >> "${PACKAGE}" << FIN
               media-type="application/xhtml+xml"
               properties="nav"/>
 FIN
-for F in $(cat ${SPINE})
+for F in $(cat "${SPINE}")
 do
-    NAME="$(echo ${F} | sed -e 's/\.[^.]*$//')"
+    NAME=$(echo "${F}" | sed -e 's/\.[^.]*$//')
     echo "        <item id=\"${NAME}\"" >> "${PACKAGE}"
     echo "              href=\"${NAME}.xhtml\"" >> "${PACKAGE}"
     echo '              media-type="application/xhtml+xml"/>' >> "${PACKAGE}"
 done
 echo '    </manifest>' >> "${PACKAGE}"
 echo '    <spine>' >> "${PACKAGE}"
-for F in $(cat ${SPINE})
+for F in $(cat "${SPINE}")
 do
-    NAME="$(echo ${F} | sed -e 's/\.[^.]*$//')"
+    NAME=$(echo "${F}" | sed -e 's/\.[^.]*$//')
     echo "        <itemref idref=\"${NAME}\"/>" >> "${PACKAGE}"
 done
 echo '    </spine>' >> "${PACKAGE}"
@@ -151,9 +151,9 @@ cat >> "${NAV}" << FIN
       <h1>${TITLE}</h1>
       <ol>
 FIN
-for F in $(cat ${SPINE})
+for F in $(cat "${SPINE}")
 do
-    NAME="$(echo ${F} | sed -e 's/\.[^.]*$//')"
+    NAME=$(echo "${F}" | sed -e 's/\.[^.]*$//')
     echo '        <li>' >> "${NAV}"
     echo "          <a href=\"${NAME}.xhtml\">${NAME}</a>" >> "${NAV}"
     echo '        </li>' >> "${NAV}"
@@ -172,12 +172,13 @@ FIN
 cd "${EPUB}"
 
 ## 'mimetype' must be first file in the zip archive.
-if ! (zip -X "${TMP_DIR}"/"${DIR}.epub" mimetype > /dev/null;\
-      zip -urX "${TMP_DIR}"/"${DIR}.epub" * > /dev/null)
+if ! (zip -X "${TMP_DIR}/${DIR}.epub" mimetype > /dev/null;\
+      zip -urX "${TMP_DIR}/${DIR}.epub" ./* > /dev/null)
 then
     echo 'Zipping failed.'
     exit 1
 fi
+
 cd - > /dev/null
 mv "${TMP_DIR}/${DIR}.epub" .
 rm -rf "${TMP_DIR}"
