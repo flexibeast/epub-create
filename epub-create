@@ -18,16 +18,16 @@ then
     exit 1
 fi
 
-echo -n 'Title? '
+printf %s 'Title? '
 read TITLE
 : ${TITLE:='A Document'}
-echo -n 'Authors? '
+printf %s 'Authors? '
 read AUTHORS
 : ${AUTHORS:='[unknown]'}
-echo -n 'Language? '
+printf %s 'Language? '
 read DOC_LANG
 : ${DOC_LANG:='en'}
-echo -n 'Publication ID? '
+printf %s 'Publication ID? '
 read PUB_ID
 : ${PUB_ID:='[unknown]'}
 
@@ -84,7 +84,7 @@ FIN
 done
 
 # Create 'mimetype' file.
-echo -n 'application/epub+zip' > "${EPUB}/mimetype"
+printf %s 'application/epub+zip' > "${EPUB}/mimetype"
 
 # Create 'container.xml' file.
 touch "${CONTAINER}"
