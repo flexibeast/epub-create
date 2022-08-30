@@ -18,13 +18,17 @@ then
     exit 1
 fi
 
-read -p 'Title? ' TITLE
+echo -n 'Title? '
+read TITLE
 : ${TITLE:='A Document'}
-read -p 'Authors? ' AUTHORS
+echo -n 'Authors? '
+read AUTHORS
 : ${AUTHORS:='[unknown]'}
-read -p 'Language? ' DOC_LANG
+echo -n 'Language? '
+read DOC_LANG
 : ${DOC_LANG:='en'}
-read -p 'Publication ID? ' PUB_ID
+echo -n 'Publication ID? '
+read PUB_ID
 : ${PUB_ID:='[unknown]'}
 
 FILES=$(ls -1 "${DIR}")
