@@ -1,5 +1,11 @@
 #!/bin/sh
 
+if ! command -v 'zip' > /dev/null
+then
+    echo "zip(1) not found."
+    exit 1
+fi
+
 if [ -z "${EDITOR}" ]
 then
     echo 'EDITOR variable not set.'
