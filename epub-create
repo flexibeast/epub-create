@@ -24,6 +24,16 @@ then
     exit 1
 fi
 
+create_epub () {
+    WORK_DIR="${1}"
+    OUT_FILE="${2}"
+    cd "${WORK_DIR}"
+    # 'mimetype' must be first file in the zip archive.
+    zip -X "${OUT_FILE}" mimetype > /dev/null;
+    zip -urX "${OUT_FILE}" ./* > /dev/null;
+    cd - > /dev/null
+}
+
 printf %s 'Title? '
 read TITLE
 : ${TITLE:='A Document'}
@@ -179,17 +189,12 @@ FIN
 "${EDITOR}" "${NAV}"
 
 # Create EPUB.
-cd "${EPUB}"
-
-## 'mimetype' must be first file in the zip archive.
-if ! (zip -X "${TMP_DIR}/${DIR}.epub" mimetype > /dev/null;\
-      zip -urX "${TMP_DIR}/${DIR}.epub" ./* > /dev/null)
+if ! create_epub "${EPUB}" "${TMP_DIR}/${DIR}.epub"
 then
     echo 'Zipping failed.'
     exit 1
 fi
 
-cd - > /dev/null
 mv "${TMP_DIR}/${DIR}.epub" .
 rm -rf "${TMP_DIR}"
 echo "Created ${DIR}.epub."
