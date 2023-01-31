@@ -38,16 +38,16 @@ DIR="${1}"
 
 printf %s 'Title? '
 read -r TITLE
-: ${TITLE:='A Document'}
+: "${TITLE:='A Document'}"
 printf %s 'Authors? '
 read -r AUTHORS
-: ${AUTHORS:='[unknown]'}
+: "${AUTHORS:='[unknown]'}"
 printf %s 'Language? '
 read -r DOC_LANG
-: ${DOC_LANG:='en'}
+: "${DOC_LANG:='en'}"
 printf %s 'Publication ID? '
 read -r PUB_ID
-: ${PUB_ID:='[unknown]'}
+: "${PUB_ID:='[unknown]'}"
 
 FILES=$(ls -1 "${DIR}")
 TMP_DIR="$(mktemp -d)"
