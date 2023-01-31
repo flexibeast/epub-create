@@ -27,11 +27,13 @@ fi
 create_epub () {
     WORK_DIR="${1}"
     OUT_FILE="${2}"
-    cd "${WORK_DIR}"
-    # 'mimetype' must be first file in the zip archive.
-    zip -X "${OUT_FILE}" mimetype > /dev/null;
-    zip -urX "${OUT_FILE}" ./* > /dev/null;
-    cd - > /dev/null
+    (
+        cd "${WORK_DIR}" \
+            || { echo "Couldn't cd to ${WORK_DIR}, exiting."; exit 1; }
+        # 'mimetype' must be first file in the zip archive.
+        zip -X "${OUT_FILE}" mimetype > /dev/null;
+        zip -urX "${OUT_FILE}" ./* > /dev/null;
+    )
 }
 
 DIR="${1}"
