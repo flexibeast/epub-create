@@ -74,7 +74,7 @@ done
 "${EDITOR}" "${SPINE}"
 
 # Create XHTML contents files.
-for F in $(cat "${SPINE}")
+cat "${SPINE}" | while read -r
 do
 
     CONTENTS=$(cat "${DIR}"/"${F}")
@@ -141,7 +141,7 @@ cat >> "${PACKAGE}" << FIN
               media-type="application/xhtml+xml"
               properties="nav"/>
 FIN
-for F in $(cat "${SPINE}")
+cat "${SPINE}" | while read -r
 do
     NAME=$(echo "${F}" | sed -e 's/\.[^.]*$//')
     echo "        <item id=\"${NAME}\"" >> "${PACKAGE}"
@@ -150,7 +150,7 @@ do
 done
 echo '    </manifest>' >> "${PACKAGE}"
 echo '    <spine>' >> "${PACKAGE}"
-for F in $(cat "${SPINE}")
+cat "${SPINE}" | while read -r
 do
     NAME=$(echo "${F}" | sed -e 's/\.[^.]*$//')
     echo "        <itemref idref=\"${NAME}\"/>" >> "${PACKAGE}"
@@ -175,7 +175,7 @@ cat >> "${NAV}" << FIN
       <h1>${TITLE}</h1>
       <ol>
 FIN
-for F in $(cat "${SPINE}")
+cat "${SPINE}" | while read -r
 do
     NAME=$(echo "${F}" | sed -e 's/\.[^.]*$//')
     echo '        <li>' >> "${NAV}"
