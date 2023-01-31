@@ -37,16 +37,16 @@ create_epub () {
 DIR="${1}"
 
 printf %s 'Title? '
-read TITLE
+read -r TITLE
 : ${TITLE:='A Document'}
 printf %s 'Authors? '
-read AUTHORS
+read -r AUTHORS
 : ${AUTHORS:='[unknown]'}
 printf %s 'Language? '
-read DOC_LANG
+read -r DOC_LANG
 : ${DOC_LANG:='en'}
 printf %s 'Publication ID? '
-read PUB_ID
+read -r PUB_ID
 : ${PUB_ID:='[unknown]'}
 
 FILES=$(ls -1 "${DIR}")
