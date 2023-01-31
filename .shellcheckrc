@@ -1,0 +1,2 @@
+disable=SC2002 # Disable "Useless use of cat"
+disable=SC2129 # Disable "Consider using { cmd1; cmd2; }"
