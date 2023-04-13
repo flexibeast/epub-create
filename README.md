@@ -1,3 +1,4 @@
+## NOTE: This repository is now read-only - official repository now at https://git.sr.ht/~flexibeast/epub-create
 EPUB-CREATE(1) - General Commands Manual
 
 # NAME
